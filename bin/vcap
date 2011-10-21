@@ -16,6 +16,7 @@
 # - mysql
 # - mongo
 # - neo4j
+# - memcached (Arturo Equihua test)
 
 require 'yaml'
 require 'fileutils'
@@ -352,6 +353,8 @@ module Run
     puts
 
     # TODO - Need to connect to mysql and unprovision any orphaned DBs
+    kill_service_instances('memcached', /memcached-server/)
+    puts
     kill_service_instances('redis', /redis-server/)
     puts
     kill_service_instances('mongodb', /mongod/)
@@ -439,7 +442,7 @@ module Run
   end
 
   def self.services
-    %w(redis mysql mongodb neo4j)
+    %w(redis mysql mongodb neo4j memcached)
   end
 
   def self.alias_args(args)
